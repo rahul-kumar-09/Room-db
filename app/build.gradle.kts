@@ -1,12 +1,10 @@
-fun kapt(room_version: String): String {
-    val room_version = "2.4.2"
-    return room_version
-}
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
+    id ("kotlin-parcelize")
+    id("com.google.devtools.ksp")
+    id ("androidx.navigation.safeargs")
 }
 
 android {
@@ -55,12 +53,24 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 
-    val room_version = "2.4.2"
-
-    implementation ("androidx.room:room-ktx:$room_version")
-    implementation ("androidx.room:room-runtime:$room_version")
-    kapt ("androidx.room:room-compiler:$room_version")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    // ROOM
+    val roomVersion = "2.6.1"
+    implementation ("androidx.room:room-runtime:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation ("androidx.room:room-ktx:$roomVersion")
+    // Navigation
+    val navVersion = "2.7.5"
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    // Life Cycle Arch
+    val lifecycleVersion = "2.6.2"
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    // Annotation processor
+    ksp("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
 
 }
